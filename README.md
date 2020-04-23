@@ -3,7 +3,7 @@
 We're going to learn how to make HTTP requests in JavaScript. This is made possible by the `fetch` function, which uses something called "promises" to manage async code. Here's a really quick example of what it looks like before we dive in:
 
 ```js
-fetch("https://pokeapi.co/api/v2/pokemon/pikachu").then(response => {
+fetch("https://pokeapi.co/api/v2/pokemon/pikachu").then((response) => {
   console.log(response);
 });
 ```
@@ -62,9 +62,7 @@ getStuff((err, stuff) => {
 Here's how that would look using promises:
 
 ```js
-getStuff()
-  .then(getOtherStuff)
-  .catch(handleError);
+getStuff().then(getOtherStuff).catch(handleError);
 ```
 
 ## What is a promise?
@@ -115,7 +113,7 @@ Since the promise's fulfilled value isn't accessible syncronously, we can't use 
 
 ```javascript
 const myPromise = fetch("url");
-myPromise.then(someData => console.log(someData));
+myPromise.then((someData) => console.log(someData));
 ```
 
 Promises are objects with a `.then()` method. This method takes a callback function as an argument. The promise will call this function with the fulfilled value when it's ready.
@@ -123,7 +121,7 @@ Promises are objects with a `.then()` method. This method takes a callback funct
 It's worth noting that you don't need to keep the promise itself around as a variable.
 
 ```javascript
-fetch("url").then(someData => console.log(someData));
+fetch("url").then((someData) => console.log(someData));
 ```
 
 ### Challenge 2
@@ -137,7 +135,9 @@ fetch("url").then(someData => console.log(someData));
 We can see the response object, but how do we get the body? The PokeAPI is returning some JSON, but `fetch` can't assume this. We have to explicitly tell it to parse the JSON body using the `response.json()` method. This is _also_ async, which means it also returns a promise. We need to use another `.then()` to access the JSON value.
 
 ```js
-fetch("url").then(response => response.json().then(data => console.log(data)));
+fetch("url").then((response) =>
+  response.json().then((data) => console.log(data))
+);
 ```
 
 Nesting our `.then()`s like this is getting us back into the same mess as with callbacks. Luckily promises have a nice solution to this problem.
@@ -150,8 +150,8 @@ If your first `.then()` returns a promise the next one won't run until the first
 
 ```js
 fetch("url")
-  .then(response => response.json())
-  .then(data => console.log(data));
+  .then((response) => response.json())
+  .then((data) => console.log(data));
 ```
 
 ### Challenge 3
@@ -167,8 +167,8 @@ Sometimes requests go wrong. We can handle errors by passing a function to the p
 
 ```javascript
 fetch("broken-url")
-  .then(response => console.log(response))
-  .catch(error => console.log(error));
+  .then((response) => console.log(response))
+  .catch((error) => console.log(error));
 ```
 
 ### Challenge 4
@@ -193,8 +193,8 @@ We're going to use the `fetch` function to get a user from the GitHub API. The A
 1. It should be callable like this:
    ```js
    getUser("oliverjam")
-     .then(user => console.log(user))
-     .catch(error => console.log(error));
+     .then((user) => console.log(user))
+     .catch((error) => console.log(error));
    ```
 
 ![](https://user-images.githubusercontent.com/9408641/74358494-6bbc1c00-4db9-11ea-9abe-687aa5a574f1.png)

@@ -7,6 +7,42 @@
   </head>
   <body>
     <h1>Open the console</h1>
-    <script></script>
+    <script>
+      //challenge 1
+      const something = fetch("https://pokeapi.co/api/v2/pokemon/pikachu");
+      console.log(something);
+
+      //challenge 2
+      something.then((someData) => console.log(someData));
+
+      //challenge 3
+
+      something
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+
+      //challenge 4
+
+      // fetch("")
+      //.then((response) => console.log(response))
+      //  .catch((error) => console.log(error));
+
+      //task 1
+      const getUser = (user) => fetch(`https://api.github.com/users/${user}`);
+      console.log(getUser);
+
+      getUser("oliverjam")
+        .then((user) => console.log(user))
+        .catch((error) => console.error(error));
+
+      //task 2
+      const getRepos = (user) =>
+        fetch(user.repos_url).then((response) => response.json());
+
+      getUser("oliverjam")
+        .then(getRepos)
+        .then(console.log)
+        .catch(console.error);
+    </script>
   </body>
 </html>
